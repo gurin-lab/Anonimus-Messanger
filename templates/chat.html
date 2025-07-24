@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="chat-container">
+    <div class="messages" id="messages">
+        {% for msg in messages %}
+        <div class="message">
+            <span class="timestamp">{{ msg.timestamp }}</span>
+            <span class="nickname">{{ msg.nickname }}:</span>
+            <span class="message-text">{{ msg.message }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <form method="POST" class="message-form" id="messageForm">
+        <input type="text" name="message" placeholder="Введите сообщение..." required>
+        <button type="submit">Отправить</button>
+    </form>
+</div>
+
+<script>
+    let lastMessageIndex = {{ messages|length }};
+    const messagesContainer = document.getElementById('messages');
+
+    // Функция для проверки новых сообщений
+    function checkNewMessages() {
+        fetch(`/get_new_messages?last_index=${lastMessageIndex}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.messages.length > 0) {
+                    data.messages.forEach(msg => {
+                        const messageElement = document.createElement('div');
+                        messageElement.className = 'message';
+                        messageElement.innerHTML = `
+                            <span class="timestamp">${msg.timestamp}</span>
+                            <span class="nickname">${msg.nickname}:</span>
+                            <span class="message-text">${msg.message}</span>
+                        `;
+                        messagesContainer.appendChild(messageElement);
+                    });
+                    lastMessageIndex = data.new_index;
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight; // Автоскролл
+                }
+            });
+    }
+
+    // Проверяем новые сообщения каждые 1 секунды
+    setInterval(checkNewMessages, 1000);
+
+    // Автоскролл при отправке своего сообщения
+    document.getElementById('messageForm').addEventListener('submit', () => {
+        setTimeout(() => {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 300);
+    });
+</script>
+{% endblock %}

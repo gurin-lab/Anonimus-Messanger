@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="ai-chat-container">
+    <div class="ai-messages" id="ai-messages">
+        {% for msg in messages %}
+        <div class="ai-message {{ 'user-message' if msg.role == 'user' else 'ai-message' }} 
+            {% if msg.is_image %}image-message{% endif %}">
+            
+            <div class="message-header">
+                <span class="role">{{ 'Вы' if msg.role == 'user' else 'ИИ' }}</span>
+                <span class="timestamp">{{ msg.timestamp }}</span>
+                {% if msg.is_image_request %}
+                <span class="message-tag">🖼️ Запрос изображения</span>
+                {% endif %}
+                {% if msg.role == 'assistant' and not msg.is_image %}
+                <button class="copy-button" onclick="copyToClipboard(this)" 
+                        data-content="{{ msg.content|escape_quotes }}">
+                    <i class="fas fa-copy"></i>
+                </button>
+                {% endif %}
+                {% if msg.used_web_search %}
+                <span class="web-search-badge">🌐 Веб-поиск</span>
+                {% endif %}
+            </div>
+            
+            <div class="message-content">
+                {% if msg.is_image %}
+                <div class="generated-image-container">
+                    <img src="{{ msg.image_url }}" alt="Сгенерированное изображение" class="generated-image">
+                    <div class="image-actions">
+                        <a href="{{ msg.image_url }}" target="_blank" class="view-original">
+                            Открыть оригинал
+                        </a>
+                    </div>
+                </div>
+                {% else %}
+                    {{ msg.content|safe }}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="ai-chat-controls">
+        <div class="action-buttons">
+            <form method="POST" class="image-gen-form">
+                <input type="text" name="image_prompt" 
+                       placeholder="Опишите изображение..." 
+                       class="image-prompt-input"
+                       required>
+                <button type="submit" name="generate_image" class="image-gen-button">
+                    <i class="fas fa-image"></i> Create
+                </button>
+            </form>
+            
+            <div class="right-buttons">
+                <form method="POST" class="web-search-form">
+                    <button type="submit" name="toggle_web_search" class="web-search-button {% if web_search %}active{% endif %}">
+                        <i class="fas fa-globe"></i> Веб-поиск
+                    </button>
+                </form>
+                
+                <form method="POST" action="{{ url_for('clear_ai_history') }}" class="clear-history-form">
+                    <button type="submit" class="clear-history-button">
+                        <i class="fas fa-trash-alt"></i> Очистить
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <form method="POST" class="ai-message-form">
+            <input type="text" name="message" placeholder="Введите ваш запрос..." required>
+            <button type="submit" class="send-button">
+                <i class="fas fa-paper-plane"></i> Отправить
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+function copyToClipboard(button) {
+    const content = button.getAttribute('data-content');
+    const temp = document.createElement('textarea');
+    temp.value = content.replace(/<[^>]*>?/gm, '');
+    document.body.appendChild(temp);
+    temp.select();
+    document.execCommand('copy');
+    document.body.removeChild(temp);
+    
+    const icon = button.querySelector('i');
+    icon.classList.remove('fa-copy');
+    icon.classList.add('fa-check');
+    setTimeout(() => {
+        icon.classList.remove('fa-check');
+        icon.classList.add('fa-copy');
+    }, 2000);
+}
+
+document.querySelector('.web-search-button').addEventListener('click', function() {
+    const isActive = this.classList.contains('active');
+    showModal(isActive ? 'Веб-поиск отключен' : 'Веб-поиск активирован');
+});
+</script>
+
+<script>
+    // Показ модального окна
+    function showModal(message) {
+        document.getElementById('modalMessage').textContent = message;
+        document.getElementById('loadingModal').style.display = 'flex';
+    }
+
+    // Скрытие модалки
+    function hideModal() {
+        document.getElementById('loadingModal').style.display = 'none';
+    }
+
+    // Обработка формы текстового запроса
+    document.querySelector('.ai-message-form').addEventListener('submit', function() {
+        showModal('Думаю над ответом...');
+    });
+
+    // Обработка формы генерации изображения
+    document.querySelector('.image-gen-form').addEventListener('submit', function() {
+        const prompt = document.querySelector('input[name="image_prompt"]').value;
+        if (prompt.trim() !== '') {
+            showModal('Генерирую изображение...');
+        }
+    });
+</script>
+{% endblock %}

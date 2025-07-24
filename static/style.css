@@ -1,0 +1,529 @@
+:root {
+    --primary-color: #4285f4;
+    --secondary-color: #34a853;
+    --background-color: #f5f5f5;
+    --message-user: #e3f2fd;
+    --message-ai: #ffffff;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-info {
+    font-size: 0.9em;
+    color: #666;
+}
+
+nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.nav-button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+    background-color: #3367d6;
+}
+
+/* Никнейм форма */
+.nickname-form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.nickname-form h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.nickname-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.nickname-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.nickname-form button:hover {
+    background-color: #3367d6;
+}
+
+/* Общий чат */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: var(--message-user);
+    border-radius: 4px;
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: #666;
+    margin-right: 10px;
+}
+
+.nickname {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.message-form {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.message-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+}
+
+.message-form button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.message-form button:hover {
+    background-color: #3367d6;
+}
+
+/* Чат с ИИ */
+.ai-chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.ai-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.ai-message {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.user-message {
+    background-color: var(--message-user);
+    margin-left: 20%;
+}
+
+.ai-message {
+    background-color: var(--message-ai);
+    margin-right: 20%;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.role {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.message-content {
+    line-height: 1.5;
+}
+
+.ai-message-form {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.ai-message-form input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+}
+
+.ai-message-form button {
+    padding: 10px 20px;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.ai-message-form button:hover {
+    background-color: #2d9249;
+}
+
+/* Markdown стили */
+.message-content strong {
+    font-weight: bold;
+}
+
+.message-content em {
+    font-style: italic;
+}
+
+.message-content code {
+    font-family: monospace;
+    background-color: #f0f0f0;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.message-content pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.ai-chat-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.ai-message-form {
+    display: flex;
+    gap: 10px;
+}
+
+/* Стили для генерации изображений */
+.image-message {
+    background-color: #f8f9fa !important;
+    border-left: 4px solid #6e8efb;
+}
+
+.generated-image-container {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.generated-image-container img {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+}
+
+.image-actions {
+    margin-top: 8px;
+}
+
+.view-original {
+    color: #6e8efb;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.view-original:hover {
+    text-decoration: underline;
+}
+
+.message-tag {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.image-prompt-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+.image-gen-button, .clear-history-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.image-gen-button {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    box-shadow: 0 2px 5px rgba(110, 142, 251, 0.3);
+}
+
+.clear-history-button {
+    background: linear-gradient(135deg, #ff7b7b, #ff5252);
+    color: white;
+    box-shadow: 0 2px 5px rgba(255, 123, 123, 0.3);
+}
+
+.image-gen-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(110, 142, 251, 0.4);
+}
+
+.clear-history-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 123, 123, 0.4);
+}
+
+.send-button {
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: white;
+}
+
+.send-button:hover {
+    background: linear-gradient(135deg, #3d8b40, #1b5e20);
+}
+
+/* Стили для химических и математических формул */
+.chemical-equation {
+    font-family: "Times New Roman", serif;
+    font-size: 1.2em;
+    color: #2c3e50;
+    padding: 5px 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 5px 0;
+}
+
+.math-expression {
+    font-family: "Cambria Math", "Latin Modern Math", serif;
+}
+
+.reaction-arrow {
+    margin: 0 10px;
+    color: #e74c3c;
+}
+
+/* Анимация для формул */
+@keyframes fadeInFormula {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.math-equation, .chemical-equation {
+    animation: fadeInFormula 0.3s ease-out;
+}
+
+/* Стили для кнопки копирования */
+.copy-button {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 2px 5px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.copy-button:hover {
+    color: #4285f4;
+    background-color: #f0f0f0;
+}
+
+.copy-button i {
+    font-size: 0.9em;
+}
+
+/* Анимация успешного копирования */
+.fa-check {
+    color: #34a853 !important;
+}
+
+/* Стили для веб-поиска */
+.web-search-form {
+    margin: 0;
+}
+
+.web-search-button {
+    padding: 10px 15px;
+    background-color: #f1f1f1;
+    color: #555;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.web-search-button.active {
+    background-color: #4285f4;
+    color: white;
+}
+
+.web-search-button:hover {
+    background-color: #e0e0e0;
+}
+
+.web-search-button.active:hover {
+    background-color: #3367d6;
+}
+
+.web-search-badge {
+    background-color: #e3f2fd;
+    color: #4285f4;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    margin-left: 8px;
+}
+
+/* Обновленные стили для кнопок */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+
+.clear-history-form {
+    margin-left: auto;
+}
+
+.image-gen-form {
+    display: flex;
+    flex-grow: 1;
+    max-width: 300px;
+    flex: 1;
+}
+
+/* Адаптация других стилей */
+.ai-message-form {
+    margin-top: 10px;
+}
+
+/* Новые стили для правой группы кнопок */
+.right-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+/* Обновленные стили для формы веб-поиска */
+.web-search-form {
+    margin: 0;
+    order: 1; /* Помещаем веб-поиск перед очисткой */
+}
+
+.clear-history-form {
+    order: 2; /* Очистка будет после веб-поиска */
+    margin-left: 0;
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .right-buttons {
+        margin-left: 0;
+        justify-content: flex-end;
+    }
+    
+    .image-gen-form {
+        max-width: 100%;
+    }
+}
+
+.chat-locked-message {
+    padding: 15px;
+    background-color: #ffebee;
+    border-radius: 4px;
+    text-align: center;
+    margin: 10px;
+    color: #c62828;
+}
